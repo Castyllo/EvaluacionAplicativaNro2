@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Lista de Trabajadores</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <style>
+            body {
+                font-family: 'Arial', sans-serif;
+                background: linear-gradient(135deg, #1e3c72, #2a5298);
+                color: #333;
+                margin: 0;
+                padding: 20px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            h1 {
+                color: #fff;
+                text-align: center;
+                margin-bottom: 20px;
+                text-transform: uppercase;
+                animation: fadeInDown 1s ease-in-out;
+            }
+
+            table {
+                width: 90%;
+                border-collapse: collapse;
+                background: #fff;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+                border-radius: 10px;
+                overflow: hidden;
+                animation: fadeIn 1.5s ease-in-out;
+            }
+
+            thead {
+                background: linear-gradient(135deg, #6a11cb, #2575fc);
+                color: #fff;
+            }
+
+            th, td {
+                padding: 15px;
+                text-align: left;
+                border-bottom: 1px solid #ddd;
+            }
+
+            th {
+                text-transform: uppercase;
+                font-size: 14px;
+                letter-spacing: 1px;
+            }
+
+            tr:nth-child(even) {
+                background: #f9f9f9;
+            }
+
+            tr:hover {
+                background: rgba(106, 17, 203, 0.1);
+                transition: background 0.3s ease-in-out;
+            }
+
+            td a {
+                text-decoration: none;
+                color: #2575fc;
+                font-weight: bold;
+                transition: color 0.3s ease-in-out;
+            }
+
+            td a:hover {
+                color: #6a11cb;
+                text-decoration: underline;
+            }
+
+            td a i {
+                margin-right: 8px;
+            }
+
+            a {
+                display: inline-block;
+                margin-top: 20px;
+                padding: 10px 20px;
+                background: linear-gradient(135deg, #6a11cb, #2575fc);
+                color: white;
+                font-weight: bold;
+                text-transform: uppercase;
+                border-radius: 5px;
+                text-decoration: none;
+                transition: transform 0.3s ease, background 0.3s ease;
+            }
+
+            a:hover {
+                transform: scale(1.1);
+                background: linear-gradient(135deg, #2575fc, #6a11cb);
+            }
+
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            @keyframes fadeInDown {
+                from {
+                    opacity: 0;
+                    transform: translateY(-20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Lista de Trabajadores</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Apellido Paterno</th>
+                    <th>Apellido Materno</th>
+                    <th>Número de Documento</th>
+                    <th>Fecha de Nacimiento</th>
+                    <th>Dirección</th>
+                    <th>Meses Trabajados</th>
+                    <th>Tipo de Seguro</th>
+                    <th>Sueldo</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="trabajador : ${trabajadores}">
+                    <td th:text="${trabajador.id}"></td>
+                    <td th:text="${trabajador.nombre}"></td>
+                    <td th:text="${trabajador.apellidoPaterno}"></td>
+                    <td th:text="${trabajador.apellidoMaterno}"></td>
+                    <td th:text="${trabajador.numeroDocumento}"></td>
+                    <td th:text="${trabajador.fechaNacimiento}"></td>
+                    <td th:text="${trabajador.direccion}"></td>
+                    <td th:text="${trabajador.mesesTrabajados}"></td>
+                    <td th:text="${trabajador.tipoSeguro}"></td>
+                    <td th:text="${trabajador.sueldo}"></td>
+                    <td>
+                        <a th:href="@{/trabajadores/editar/{id}(id=${trabajador.id})}"><i class="fas fa-edit"></i> Editar</a>
+                        <a th:href="@{/trabajadores/eliminar/{id}(id=${trabajador.id})}" onclick="return confirm('¿Eliminar trabajador?')"><i class="fas fa-trash-alt"></i> Eliminar</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <a href="/trabajadores/nuevo"><i class="fas fa-plus"></i> Agregar Nuevo Trabajador</a>
+    </body>
+</html>

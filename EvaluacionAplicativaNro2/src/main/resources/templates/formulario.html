@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Formulario de Trabajador</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <style>
+            body {
+                font-family: 'Arial', sans-serif;
+                background: linear-gradient(135deg, #6a11cb, #2575fc);
+                color: #333;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+            }
+
+            h1 {
+                text-align: center;
+                color: #fff;
+                margin-bottom: 20px;
+                transition: transform 0.3s ease;
+            }
+
+            h1:hover {
+                transform: scale(1.1);
+            }
+
+            form {
+                background: #fff;
+                padding: 20px 30px;
+                border-radius: 8px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                max-width: 400px;
+                width: 100%;
+                animation: fadeIn 1s ease-in-out;
+                transition: transform 0.3s ease;
+            }
+
+            form:hover {
+                transform: scale(1.03);
+            }
+
+            label {
+                font-weight: bold;
+                display: block;
+                margin-bottom: 8px;
+                color: #555;
+            }
+
+            input, select, button {
+                width: 100%;
+                padding: 10px;
+                margin-bottom: 15px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                font-size: 16px;
+                transition: all 0.3s ease-in-out;
+            }
+
+            input:hover, select:hover {
+                transform: scale(1.05);
+                box-shadow: 0 0 5px rgba(106, 17, 203, 0.3);
+            }
+
+            input:focus, select:focus {
+                border-color: #6a11cb;
+                box-shadow: 0 0 5px rgba(106, 17, 203, 0.3);
+                outline: none;
+            }
+
+            button {
+                background: linear-gradient(135deg, #6a11cb, #2575fc);
+                color: white;
+                font-weight: bold;
+                border: none;
+                cursor: pointer;
+                text-transform: uppercase;
+                transition: transform 0.3s ease;
+            }
+
+            button:hover {
+                background: linear-gradient(135deg, #2575fc, #6a11cb);
+                transform: scale(1.05);
+            }
+
+            button:active {
+                transform: scale(0.98);
+            }
+
+            a {
+                text-decoration: none;
+                color: #2575fc;
+                display: inline-block;
+                text-align: center;
+                width: 100%;
+                margin-top: 10px;
+                transition: all 0.3s ease-in-out;
+            }
+
+            a:hover {
+                color: #6a11cb;
+                text-decoration: underline;
+            }
+
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(-20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <h1 th:text="${trabajador.id == null ? 'Crear Trabajador' : 'Editar Trabajador'}"></h1>
+            <form th:action="@{/trabajadores}" th:object="${trabajador}" method="post">
+                <input type="hidden" th:field="*{id}" />
+
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" th:field="*{nombre}" required />
+
+                <label for="apellidoPaterno">Apellido Paterno:</label>
+                <input type="text" id="apellidoPaterno" th:field="*{apellidoPaterno}" required />
+
+                <label for="apellidoMaterno">Apellido Materno:</label>
+                <input type="text" id="apellidoMaterno" th:field="*{apellidoMaterno}" />
+
+                <label for="numeroDocumento">Número de Documento:</label>
+                <input type="text" id="numeroDocumento" th:field="*{numeroDocumento}" required />
+
+                <label for="fechaNacimiento">Fecha de Nacimiento:</label>
+                <input type="date" id="fechaNacimiento" th:field="*{fechaNacimiento}" required />
+
+                <label for="direccion">Dirección:</label>
+                <input type="text" id="direccion" th:field="*{direccion}" />
+
+                <label for="mesesTrabajados">Meses Trabajados:</label>
+                <input type="number" id="mesesTrabajados" th:field="*{mesesTrabajados}" min="0" />
+
+                <label for="tipoSeguro">Tipo de Seguro:</label>
+                <select id="tipoSeguro" th:field="*{tipoSeguro}">
+                    <option value="ESSALUD">ESSALUD</option>
+                    <option value="EPS">EPS</option>
+                </select>
+
+                <label for="sueldo">Sueldo:</label>
+                <input type="number" id="sueldo" th:field="*{sueldo}" step="0.01" min="0" required />
+
+                <button type="submit"><i class="fas fa-save"></i> Guardar</button>
+            </form>
+            <a href="/trabajadores"><i class="fas fa-arrow-left"></i> Cancelar</a>
+        </div>
+    </body>
+</html>
